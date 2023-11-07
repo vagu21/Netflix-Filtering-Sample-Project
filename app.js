@@ -1,6 +1,6 @@
 
 
-let movieslist=[
+let movies=[
    {
          name:"Temper",
          poster:"https://i.pinimg.com/736x/8e/4e/13/8e4e131e7ee47cfbbd48b9e9ccffda23.jpg",
@@ -111,74 +111,42 @@ let movieslist=[
 ];
 
 
-function searchMovie()
-{
+function searchMovie() {
     let movieName = document.getElementById('search').value;
-    
-    if(movieName!=="")
-    {
 
-        let result =movies.filter(function(movie)
-                    {
-                        return movie.name.toUpperCase().includes(movieName.toUpperCase())
-                    })
-
-        if(result.length==0)
-        {
-            
-        }
+    if (movieName !== "") {
+        let result = movies.filter(function (movie) {
+            return movie.name.toUpperCase().includes(movieName.toUpperCase());
+        });
         displayMovies(result);
-
-
-    }
-    else 
-    {
+    } else {
         displayMovies(movies);
     }
+}
 
-    }
-
-
-
-
-function displayMovies()
-{
+function displayMovies(data) {
+    document.getElementById("movies").innerHTML = "";
 
     let htmlString = ``;
 
+    for (let i = 0; i < data.length; i++) {
+        htmlString = htmlString + `
+            <div class="movie">
+                <div class="overlay">
+                    <div class="video">
+                    </div>
+                    <div class="details">
+                        <h1>${data[i].name}</h1>
+                        <h2>IMDB : ${data[i].rating}</h2>
+                        <p>Rami Malek . Jhon Jacobs . Emma Stone</p>
+                    </div>
+                </div>
+                <img class="poster" src="${data[i].poster}" alt="poster">
+            </div>
+        `;
+    }
 
-for(let j=0;j<movieslist.length;j++){
-    
-    htmlString=htmlString+`
-    <div class="movie">
-    <div class="overlay">
-    
-           <div class="video"></div>
-           <div class="details">
-              <h1>${movieslist[j].name}</h1>
-              <h2>${movieslist[j].rating}</h2>
-              <p>Sangeeth Shoban,Gopika Udayan</p>
-    
-           </div>
-    </div>
-                 <img class="poster" src="${movieslist[j].poster}" alt="MAD"> 
-    </div>
-    
-    </div>`
-    
-document.getElementById("movies").innerHTML=htmlString;
+    document.getElementById("movies").innerHTML = htmlString;
 }
-
-}
-
-
 
 displayMovies(movies);
-
-
-
-
-
-
-
-
